@@ -33,7 +33,10 @@ case "$1" in
 	
 	;;
     emacs)
-
+	
+	
+	
+	cp ./.emacs ~/.emacs
 	rm -rf ~/.emacs.d
 	
 	;;
