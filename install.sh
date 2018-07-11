@@ -9,12 +9,11 @@ case "$1" in
     init)
 	# This step is recommended when all setup is finished
 	cp .bashrc ~/.bashrc
-	cp .emacs ~/.emacs
 	cp .zshrc ~/.zshrc
 	
 	;;
     essential-tool)
-	sudo apt-get install build-essential ncurses-dev libncurses5-dev gettext autoconf cmake automake libevent-dev zlib1g-dev libbz2-dev libssl-dev libsqlite3-dev
+	sudo apt-get install build-essential ncurses-dev libncurses5-dev gettext autoconf cmake automake libevent-dev zlib1g-dev libbz2-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev pkg-config
 	;;
 
     fish)
