@@ -1,4 +1,3 @@
-
 # Filename:      /etc/skel/.zshrc
 # Purpose:       config file for zsh (z shell)
 # Authors:       (c) grml-team (grml.org)
@@ -364,10 +363,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="/home/kodingwarrior/.pyenv/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=/home/kodingwarrior/.oh-my-zsh
 
@@ -415,46 +410,50 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=( git zsh-autosuggestions django )
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
 #
-# Example aliases
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
-alias emacs="emacs -nw"
+export PATH="/home/kodingwarrior/.rbenv/shims:${PATH}"
+export RBENV_SHELL=zsh
+source '/usr/lib/rbenv/libexec/../completions/rbenv.zsh'
+command rbenv rehash 2>/dev/null
+rbenv() {
+  local command
+  command="${1:-}"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval "$(rbenv "sh-$command" "$@")";;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
+export PATH="/home/kodingwarrior/.pyenv/shims:${PATH}"
+export PYENV_SHELL=zsh
+source '/home/kodingwarrior/.pyenv/libexec/../completions/pyenv.zsh'
+command pyenv rehash 2>/dev/null
+pyenv() {
+  local command
+  command="${1:-}"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  activate|deactivate|rehash|shell)
+    eval "$(pyenv "sh-$command" "$@")";;
+  *)
+    command pyenv "$command" "$@";;
+  esac
+}
+eval "$(starship init `basename $SHELL`)"
+
+alias vi=nvim
+alias vim=nvim
+export ANDROID_HOME=$HOME/Android/Sdk
+
+FIREFOX_PATH='~kodingwarrior/Downloads/firefox/mozilla-central/mach'
+alias firefox-developer="$FIREFOX_PATH run"
+
+[ -s "/home/kodingwarrior/.jabba/jabba.sh" ] && source "/home/kodingwarrior/.jabba/jabba.sh"

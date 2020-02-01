@@ -24,7 +24,7 @@ case "$1" in
 		esac
 
 		;;
-   	vim|tmux|emacs|pyenv|zsh|fish|rust|starship)
+   	neovim|vim|tmux|emacs|pyenv|zsh|fish|rust|starship)
 		source $INCLUDE_PATH
 		;;
 
